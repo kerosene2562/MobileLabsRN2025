@@ -1,13 +1,11 @@
 import { Pressable, TextInput, Image, ActivityIndicator, StyleSheet, Text, View , ImageBackground, TouchableOpacity, ScrollView, RefreshControl, Switch, Modal, Button, } from 'react-native';
 import React, {useState} from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 
 function NewsBuilder()
     {
         return (
             <View style = {styles.news}>
-                <Image source = {require('./src/assets/news.png')} style = {styles.newsImg} />
+                <Image source = {require('../assets/news.png')} style = {styles.newsImg} />
                 <View style = {styles.newsTextView}>
                     <Text style = {styles.newsMainText}>Заголовок новини</Text>
                     <Text style = {styles.newsDateText}>Дата новини</Text>
@@ -44,6 +42,7 @@ function NewsBuilder()
             </View>
         );
     }
+    export default HomeScreen;
 
 
 const styles = StyleSheet.create({
