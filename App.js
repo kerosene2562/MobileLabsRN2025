@@ -13,16 +13,16 @@ import ProfileScreen from "./src/screens/ProfileScreen";
 const Tab = createBottomTabNavigator();
 
 function AppContent() {
-  const { theme } = useTheme(); // ✅ useTheme should be used inside the ThemeProviderComponent
+  const { theme } = useTheme(); 
 
   return (
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
           headerShown: false,
-          tabBarStyle: { backgroundColor: theme.background }, // Колір фону панелі
-          tabBarActiveTintColor: theme.text, // Колір активної іконки
-          tabBarInactiveTintColor: "#888", // Колір неактивної іконки
+          tabBarStyle: { backgroundColor: theme.background }, 
+          tabBarActiveTintColor: theme.text, 
+          tabBarInactiveTintColor: "#888", 
         }}
       >
         <Tab.Screen

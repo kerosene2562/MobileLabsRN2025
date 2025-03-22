@@ -160,7 +160,6 @@ export default function ChatScreen() {
                 {showSearchIcon && <Ionicons name="search-outline" size={40} color={'black'} onPress={handleFocus} />}
             </Header>
 
-            {/* Tab Buttons */}
             <TabContainer>
                 <TabButton active={activeTab === 'chats'} onPress={() => setActiveTab('chats')}>
                     <TabText active={activeTab === 'chats'}>Open Chats</TabText>
@@ -170,7 +169,6 @@ export default function ChatScreen() {
                 </TabButton>
             </TabContainer>
 
-            {/* Display either chats or friends based on the activeTab */}
             {activeTab === 'chats' ? (
                 <FlatList
                     data={chats}

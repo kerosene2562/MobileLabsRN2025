@@ -10,12 +10,12 @@ export default function SafetyScreen() {
     const { theme, toggleTheme } = useTheme();
     const [code, setCode] = useState(generateCode());
     const [progress, setProgress] = useState(1);
-    const [activeTab, setActiveTab] = useState('guard'); // Змінюємо активний таб
+    const [activeTab, setActiveTab] = useState('guard');
 
     useEffect(() => {
         const interval = setInterval(() => {
             setCode(generateCode());
-            setProgress(1); // Скидаємо прогрес до початкового значення
+            setProgress(1); 
         }, 60000);
 
         const progressInterval = setInterval(() => {
@@ -23,7 +23,7 @@ export default function SafetyScreen() {
                 if (prev <= 0) {
                     return 0;
                 }
-                return prev - 0.02; // Зменшуємо прогрес
+                return prev - 0.02; 
             });
         }, 1200);
 
@@ -44,7 +44,6 @@ export default function SafetyScreen() {
                 </StyledViewBlock>
             </StyledHeader>
 
-            {/* Тумблер для перемикання між Guard та Confirmations */}
             <TabContainer>
                 <TabButton active={activeTab === 'guard'} onPress={() => setActiveTab('guard')}>
                     <TabText active={activeTab === 'guard'}>Guard</TabText>
@@ -67,17 +66,6 @@ export default function SafetyScreen() {
             <Button theme={theme}><ButtonText theme={theme}>Remove Authenticator</ButtonText></Button>
             <Button theme={theme}><ButtonText theme={theme}>My Recovery Code</ButtonText></Button>
             <Button theme={theme}><ButtonText theme={theme}>Help</ButtonText></Button>
-
-            {/* Контент залежно від вибраного табу */}
-            {activeTab === 'guard' ? (
-                <GuardContent>
-                    {/* Тут можна додати вміст для Guard */}
-                </GuardContent>
-            ) : (
-                <ConfirmationsContent>
-                    {/* Тут можна додати вміст для Confirmations */}
-                </ConfirmationsContent>
-            )}
         </Container>
     );
 }
@@ -124,7 +112,7 @@ const IconWrapper = styled.View`
 
 const CodeContainer = styled.View`
     align-items: center;
-    margin-top: 20px; /* Зменшено відступ після хедера */
+    margin-top: 20px;
     margin-bottom: 20px;
 `;
 
@@ -164,11 +152,10 @@ const ButtonText = styled.Text`
     font-weight: bold;
 `;
 
-// Тумблер для перемикання між Guard та Confirmations
 const TabContainer = styled.View`
     flex-direction: row;
     justify-content: space-between;
-    margin-top: 100px;  /* Піднімаємо тумблер ближче до хедера */
+    margin-top: 100px;  
     padding: 10px 20px;
 `;
 
