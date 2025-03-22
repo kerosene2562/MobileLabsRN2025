@@ -1,16 +1,17 @@
 import React, { useState, useRef } from 'react';
-import { FlatList, View, Text, Button, TextInput, ImageBackground } from 'react-native';
+import { ScrollView, FlatList, View, Text, Button, TextInput, ImageBackground } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import styled from 'styled-components';
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import { useTheme } from '../components/ThemeContext';
 
 const StyledMainView = styled.View`
-    background-color:rgb(211, 211, 211);
+    background-color: ${(props) => props.theme.background};
     flex: 1;
 `;
 
 const StyledHeader = styled.View`
-    background-color: rgb(204, 204, 204);
+    background-color: ${(props) => props.theme.header};
     height: 100px;
 `;
 
@@ -24,6 +25,7 @@ const StyledViewBlock = styled.View`
 `;
 
 const StyledMainText = styled.Text`
+    color: ${(props) => props.theme.text};
     font-weight: 500;
     font-size: 30px;
     margin-left: 10px;
@@ -37,13 +39,14 @@ const IconWrapper = styled.View`
     overflow: hidden;
 `;
 
-const StyledInput = styled.TextInput`
-    borderRadius: 10px;
+const StyledInput = styled(TextInput)`
+    border-radius: 10px;
     margin-left: 15px;
     width: ${(props) => (props.focused ? '60%' : '50%')};
     border: ${(props) => (props.focused ? '1px' : 'none')};
     padding-left: 10px;
     height: 40px;
+    color: ${(props) => props.theme.text};
 `;
 
 const Card = styled.View`
@@ -54,6 +57,8 @@ const Card = styled.View`
     border-radius: 20px;
     elevation: 5;
     margin-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 20px;
     overflow: hidden;
 `;
 
@@ -72,7 +77,7 @@ const CardText = styled.Text`
 const CardTextSmall = styled.Text`
     font-size: 15px;
     font-weight: 500;
-    color: rgb(214, 214, 214);
+    color: rgb(218, 218, 218);
 `;
 
 const MoreInfoBlock = styled.View`
@@ -99,7 +104,7 @@ const StrikethroughText = styled.Text`
     text-decoration-line: line-through;
     margin-right: 10px;
     font-size: 16px;
-    color: rgb(173, 173, 173);
+    color: rgb(255, 49, 49);
 `;
 
 const DiscountText = styled.Text`
@@ -111,7 +116,68 @@ const DiscountText = styled.Text`
     color: white;
 `;
 
+const Tab = styled.View`
+    flex: 1;
+    background-color: ${(props) => props.theme.cardSecondary};
+    width: 150px;
+    height: 40px;
+    border-radius: 10px;
+    elevation: 5;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+`;
+
+const TabText = styled.Text`
+    font-size: 20px;
+    color: ${(props) => props.theme.text};
+`;
+
+const GameTab = styled.View`
+    width: 95%;
+    height: 100px;
+    background-color: ${(props) => props.theme.cardSecondary};
+    border-radius: 10px;
+    overflow: hidden;
+    border-radius: 10px;
+    margin: 5px auto;
+    elevation: 5;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+`;
+
+const SmallImageContainer = styled.View`
+    width: 100px;
+    height: 80px;
+    margin: 10px;
+    border-radius: 10px;
+    overflow: hidden;
+`;
+
+const SmallGameImg = styled.ImageBackground`
+    width: 100px;
+    height: 80px;
+`;
+
+const InfoBlock = styled.View`
+    flex: 1;
+    height: 80%;
+    margin: 10px;
+`;
+
+const TopInfoBlock = styled.View`
+    flex:1;
+    height: 50%;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+`;
+
 export function Store(){
+    const theme = useTheme();
     const [focused, setFocused] = useState(false);
     const [showSearchIcon, setShowSearchIcon] = useState(true);
     const inputRef = useRef(null);
@@ -127,15 +193,26 @@ export function Store(){
         setShowSearchIcon(true);
     }
 
-    const cardData = [
+    const tabsData = [
+        {id: '1', title: 'Top Setters'},
+        {id: '2', title: 'Free to play'},
+        {id: '3', title: 'Early Access'},
+        {id: '4', title: 'Discounts'},
+        {id: '5', title: 'New games'},
+    ];
+
+    const gamesData = [
         { id: '1', title: 'Dead by Daylight', recomended: 'Recomended by your friend, Player', price: '18', discount: '50', systems: ['windows', 'mac', 'linux'], src: require('../assets/deadByDaylight.jpg')},
         { id: '2', title: 'Borderlands 3', recomended: 'Recomended by your friend, Player', price: '23', discount: '30', systems: ['windows'], src: require('../assets/borderlands3.jpg') },
         { id: '3', title: 'Doom 2016', recomended: 'Recomended by your friend, Player', price: '30', discount: '20', systems: ['windows'], src: require('../assets/doom2016.jpg') },
         { id: '4', title: 'This war of mine', recomended: 'Recomended by your friend, Player', price: '10', discount: '0', systems: ['windows', 'linux'], src: require('../assets/twom.jpg') },
-        { id: '5', title: 'Harts of iron 4', recomended: 'Recomended by your friend, Player', price: '40', discount: '90', systems: ['windows', 'mac'], src: require('../assets/hoi4.jpg') },
-      ];
+        { id: '5', title: 'Hearts of iron 4', recomended: 'Recomended by your friend, Player', price: '40', discount: '90', systems: ['windows', 'mac'], src: require('../assets/hoi4.jpg') },
+        { id: '6', title: 'Scorn', recomended: 'Recomended by your friend, Player', price: '40', discount: '85', systems: ['windows', 'mac'], src: require('../assets/scorn.jpg') },
+        { id: '7', title: 'Half Life', recomended: 'Recomended by your friend, Player', price: '10', discount: '90', systems: ['windows', 'mac'], src: require('../assets/halflife.jpg') },
+        { id: '8', title: 'Hollow knight', recomended: 'Recomended by your friend, Player', price: '20', discount: '70', systems: ['windows', 'mac'], src: require('../assets/hollowKnight.jpg') },
+    ];
     
-    const renderItem = ({ item }) => {
+    const renderCards = ({ item }) => {
         const discountedPrice = item.price * (1 - item.discount / 100);
         return(
             <Card>
@@ -165,6 +242,49 @@ export function Store(){
             </Card> 
         );
     }
+
+    const renderTabs = ({ item }) => {
+        return(
+            <Tab>
+                <TabText>{item.title}</TabText>
+            </Tab>
+        );
+    }
+
+    const renderGames = ({item}) => {
+        const discountedPrice = item.price * (1 - item.discount / 100);
+        return(
+            <GameTab>
+                <SmallImageContainer>
+                    <SmallGameImg source={item.src}/>
+                </SmallImageContainer>
+                
+                <InfoBlock>
+                    <TopInfoBlock>
+                        <TabText>{item.title}</TabText>
+                        <PriceBlock>
+                            { item.discount > 0 ? (
+                                <>
+                                    <StrikethroughText>{item.price}$</StrikethroughText>
+                                    <TabText>{discountedPrice.toFixed(2)}$</TabText>
+                                </>
+                            ) : (
+                                <TabText>{item.price}$</TabText>
+                            )}
+                        </PriceBlock>
+                    </TopInfoBlock>
+                    <TopInfoBlock>
+                        <SystemsBlock>
+                             { item.systems.includes('windows') && <Ionicons name="logo-windows" size={25} color="black" />}
+                            { item.systems.includes('mac') && <Ionicons name="logo-apple" size={25} color="black" />}
+                            { item.systems.includes('linux') && <Ionicons name="logo-tux" size={25} color="black" />}
+                        </SystemsBlock>
+                        <DiscountText>-{item.discount}%</DiscountText>
+                    </TopInfoBlock>
+                </InfoBlock>
+            </GameTab>
+        );
+    }
     
     return(
         <StyledMainView>
@@ -178,15 +298,31 @@ export function Store(){
                     { showSearchIcon && <Ionicons name="search-outline" size={40} color={'black'} onPress={handleFocus} /> }
                 </StyledViewBlock>
             </StyledHeader>
+            <ScrollView>
+                <FlatList 
+                    data = {gamesData.slice(0,5)}
+                    renderItem = {renderCards}
+                    keyExtractor={(item) => item.id}
+                    horizontal
+                    showsHorizontalScrollIndicator = {false}
+                />
 
-            <FlatList 
-                data = {cardData}
-                renderItem = {renderItem}
-                keyExtractor={(item) => item.id}
-                horizontal
-                showsHorizontalScrollIndicator = {false}
-            />
+                <FlatList 
+                    data = {tabsData}
+                    renderItem = {renderTabs}
+                    keyExtractor={(item) => item.id}
+                    horizontal
+                    showsHorizontalScrollIndicator = {false}
+                />
 
+                <FlatList 
+                    data = {gamesData}
+                    renderItem = {renderGames}
+                    keyExtractor={(item) => item.id}
+                    scrollEnabled={false}
+                    showsHorizontalScrollIndicator = {false}
+                />
+            </ScrollView>
             <StatusBar style="auto" />
         </StyledMainView>
     );
