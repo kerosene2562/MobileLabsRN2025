@@ -13,16 +13,31 @@
       "backgroundColor": "#ffffff"
     },
     "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+      "bundleIdentifier": "com.yourcompany.yourapp",
+      "infoPlist": {
+        "UIBackgroundModes": ["remote-notification"]
+      },
+      "entitlements": {
+        "aps-environment": "development",
+        "com.apple.security.application-groups": [
+          "group.${ios.bundleIdentifier}.onesignal"
+        ]
       }
     },
-    "web": {
-      "favicon": "./assets/favicon.png"
+    "android": {
+      "package": "com.yourcompany.yourapp"
+    },
+    "plugins": [
+      [
+        "onesignal-expo-plugin",
+        {
+          "mode": "development"
+        }
+      ]
+    ],
+    "extra": {
+      "oneSignalAppId": "b3d1e7b8-9383-4969-8b94-98fede5cc208",
+      "oneSignalApiKey": "os_v2_app_wpi6poetqnewtc4utd7n4xgcbapqcesqqolu3jv4blf6wqrc7yybrizczna2zuuv5m7h3hw6hurogd6nrsdoopphe645o5zgg5ooioi"
     }
   }
 }
